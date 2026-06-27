@@ -1,3 +1,19 @@
+import express from 'express';
+const app = express();
+// Render يضع رقم المنفذ في هذا المتغير
+const port = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+    res.send('Bot is running!');
+});
+
+// هذا السطر هو الذي يحل مشكلة Port scan timeout
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+});
+
+// ... هنا تضع كود البوت الخاص بك (client.login...)
+
 import { Client, GatewayIntentBits } from 'discord.js';
 import express from 'express';
 import 'dotenv/config';
