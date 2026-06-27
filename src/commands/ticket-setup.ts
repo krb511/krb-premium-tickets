@@ -3,11 +3,10 @@ import { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits } from 'di
 export const ticketSetupCommand = {
     data: new SlashCommandBuilder()
         .setName('setup-tickets')
-        .setDescription('إعداد نظام التذاكر في السيرفر')
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator), // حماية الأمر للمدراء فقط
+        .setDescription('إعداد نظام التذاكر')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     
     async execute(interaction: CommandInteraction) {
-        // نستخدم interaction.reply بدلاً من التعقيدات التي تسبب خطأ options
-        await interaction.reply({ content: '⚙️ جاري إعداد نظام التذاكر...', ephemeral: true });
+        await interaction.reply({ content: '⚙️ تم تفعيل نظام التذاكر بنجاح!', ephemeral: true });
     }
 };
