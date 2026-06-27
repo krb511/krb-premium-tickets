@@ -3,12 +3,9 @@ import * as discordTranscripts from 'discord-html-transcripts';
 
 export class TranscriptService {
     public static async generate(channel: TextChannel): Promise<AttachmentBuilder> {
-        const attachment = await discordTranscripts.createTranscript(channel, {
-            returnType: 'attachment',
+        const attachment = await (discordTranscripts as any).createTranscript(channel, {
             filename: 'transcript.html',
         });
-        
-        // التحويل الصريح لضمان توافق الأنواع
-        return attachment as unknown as AttachmentBuilder;
+        return attachment as AttachmentBuilder;
     }
 }
