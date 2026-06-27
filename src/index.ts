@@ -1,7 +1,20 @@
-import { Client, GatewayIntentBits, CommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { Client, GatewayIntentBits } from 'discord.js';
+import express from 'express';
 import 'dotenv/config';
 
-// 1. تعريف البوت
+// 1. إعداد خادم الويب (لإرضاء Render)
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+    res.send('Bot is online!');
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
+
+// 2. إعداد البوت
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -10,29 +23,9 @@ const client = new Client({
     ]
 });
 
-// 2. أمر الاختبار (تم وضعه هنا لضمان عمله فوراً)
-const pingCommand = {
-    data: new SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('للتحقق من سرعة عمل البوت'),
-    async execute(interaction: CommandInteraction) {
-        await interaction.reply({ content: '🏓 البوت يعمل بكفاءة!', ephemeral: true });
-    }
-};
-
-// 3. تشغيل البوت
 client.once('ready', () => {
     console.log(`[SYSTEM] Bot started successfully as ${client.user?.tag}!`);
 });
 
-// 4. معالجة التفاعلات
-client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isChatInputCommand()) return;
-
-    if (interaction.commandName === 'ping') {
-        await pingCommand.execute(interaction);
-    }
-});
-
-// 5. تسجيل الدخول
+// 3. تسجيل الدخول
 client.login(process.env.DISCORD_TOKEN);
