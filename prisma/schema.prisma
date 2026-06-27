@@ -1,15 +1,12 @@
-// 1. تحديد مزود قاعدة البيانات
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-// 2. تحديد المولد (لا تغيّر هذا)
-generator client {
-  provider = "prisma-client-js"
-}
-
-// 3. جدول التذاكر
 model Ticket {
   id        String   @id @default(uuid())
   guildId   String
@@ -17,4 +14,9 @@ model Ticket {
   category  String
   status    String   @default("OPEN")
   createdAt DateTime @default(now())
+}
+
+model GuildConfig {
+  guildId String @id
+  prefix  String @default("!")
 }
