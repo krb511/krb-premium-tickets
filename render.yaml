@@ -1,0 +1,11 @@
+services:
+  - type: worker
+    name: krb-tickets-premium
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run db:push && npm start
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: DATABASE_URL
+        value: "file:./database.db"
